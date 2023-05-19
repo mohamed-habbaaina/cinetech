@@ -1,11 +1,13 @@
 <?php
+session_start();
+
 require_once('./vendor/autoload.php');
 
 $router = new AltoRouter();
 
 $router->setBasePath('/cinetech');
 
-use App\Controller\AuthController;
+use App\Controllers\AuthController;
 
 $router->map('GET', '/', function(){
 
@@ -37,6 +39,18 @@ $router->map('POST', '/login', function(){
 
     $authController = new AuthController();
     $authController->login($_POST['email'], $_POST['password']);
+
+});
+
+$router->map('GET', '/films', function(){
+
+    require (__DIR__ . '/src/Views/films.php');
+
+});
+
+$router->map('GET', '/series', function(){
+
+    require (__DIR__ . '/src/Views/series.php');
 
 });
 
