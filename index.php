@@ -48,9 +48,29 @@ $router->map('GET', '/films', function(){
 
 });
 
+$router->map('GET', '/movie/[i:id]', function($id){
+
+        $client = new \GuzzleHttp\Client();
+
+        $response = $client->request('GET', 'https://api.themoviedb.org/3/movie/'. $id, [
+            'headers' => [
+          'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjNTE1NGIzOTJiZWJiZTcxZDVkNjA3ZWJkNmMxOWVjMiIsInN1YiI6IjY0NjU0MGNlZmEyN2Y0MDBmZTEyMGVmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.pFdq9dS8QXyIyJNeJGJnmtZvguWiyLwe5EiFlpulZZE',
+          'accept' => 'application/json',
+        ],
+      ]);
+      $data = json_decode($response->getBody());
+      echo $data->title;
+      echo '<br>';
+      echo '<pre>';
+      var_dump(($data));
+      echo '</pre>';
+
+      require (__DIR__ . '/src/Views/series.php');
+});
+
 $router->map('GET', '/series', function(){
 
-    require (__DIR__ . '/src/Views/series.php');
+    
 
 });
 
